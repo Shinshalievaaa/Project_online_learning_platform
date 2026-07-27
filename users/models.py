@@ -22,22 +22,23 @@ class User(AbstractUser):
 
 
 class Payment(models.Model):
-    """ Способы оплаты """
-    CASH = 'cash'
-    TRANSFER = 'transfer'
+    """Способы оплаты"""
+
+    CASH = "cash"
+    TRANSFER = "transfer"
 
     PAYMENT_METHOD_CHOICES = [
-        (CASH, 'Наличные'),
-        (TRANSFER, 'Перевод на счет'),
+        (CASH, "Наличные"),
+        (TRANSFER, "Перевод на счет"),
     ]
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='payments',
-        verbose_name='Пользователь'
+        related_name="payments",
+        verbose_name="Пользователь",
     )
-    payment_date = models.DateTimeField('Дата оплаты', auto_now_add=True)
+    payment_date = models.DateTimeField("Дата оплаты", auto_now_add=True)
 
     # Ссылки на оплаченный курс ИЛИ урок
     course = models.ForeignKey(
@@ -45,31 +46,28 @@ class Payment(models.Model):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name='payments',
-        verbose_name='Оплаченный курс'
+        related_name="payments",
+        verbose_name="Оплаченный курс",
     )
     lesson = models.ForeignKey(
         Lesson,
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name='payments',
-        verbose_name='Оплаченный урок'
+        related_name="payments",
+        verbose_name="Оплаченный урок",
     )
 
-    amount = models.DecimalField('Сумма оплаты', max_digits=10, decimal_places=2)
+    amount = models.DecimalField("Сумма оплаты", max_digits=10, decimal_places=2)
     payment_method = models.CharField(
-        'Способ оплаты',
-        max_length=10,
-        choices=PAYMENT_METHOD_CHOICES,
-        default=TRANSFER
+        "Способ оплаты", max_length=10, choices=PAYMENT_METHOD_CHOICES, default=TRANSFER
     )
 
     class Meta:
-        verbose_name = 'Платеж'
-        verbose_name_plural = 'Платежи'
-        ordering = ('-payment_date',)
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
+        ordering = ("-payment_date",)
 
     def __str__(self):
         item = self.course if self.course else self.lesson
-        return f'{self.user} - {item} ({self.amount} руб.)'
+        return f"{self.user} - {item} ({self.amount} руб.)"
