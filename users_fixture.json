@@ -1,0 +1,42 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "123456",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-27T07:24:40.878Z",
+        "email": "test@mail.ru",
+        "phone": "777-555-666",
+        "city": "Almaty",
+        "avatar": "",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+        "password": "123456789",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-27T07:25:33.878Z",
+        "email": "example@mail.ru",
+        "phone": "111-222-333",
+        "city": "Moskow",
+        "avatar": "",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
