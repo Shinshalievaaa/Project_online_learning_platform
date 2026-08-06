@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # import dotenv
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     "users",
     "rest_framework",
     "django_filters",
+    "rest_framework_simplejwt",
 ]
 
 MIDDLEWARE = [
@@ -122,6 +124,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+}
+
+# Настройки срока действия токенов
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
 AUTHENTICATION_BACKENDS = (

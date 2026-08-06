@@ -16,25 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'phone', 'city', 'avatar', 'payments')
-        # fields = (
-        #     "id",
-        #     "email",
-        #     "phone",
-        #     "city",
-        #     "avatar",
-        #     "payments",
-        # )
-        # extra_kwargs = {
-        #     # Пароль пишется только при создании/обновлении, в ответе API не возвращается
-        #     'password': {'write_only': True}
-        # }
 
     def create(self, validated_data):
-        """Создает и возвращает пользователя с захэшированным паролем"""
-        # user = User.objects.create_user(**validated_data)
+        """Создает пользователя"""
         email = validated_data.pop('email')
         password = validated_data.pop('password', None)
-        # 2. Передаем email первым позиционным аргументом, а остальные поля распаковываем
         user = User.objects.create_user(email=email, password=password, **validated_data)
         return user
 
