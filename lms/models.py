@@ -22,8 +22,8 @@ class Course(models.Model):
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
 
 class Lesson(models.Model):
@@ -54,3 +54,27 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CourseSubscription(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name="Пользователь",
+        related_name="subscriptions",
+    )
+    course = models.ForeignKey(
+        Course,  # укажите корректное имя вашей модели курса
+        on_delete=models.CASCADE,
+        verbose_name="Курс",
+        related_name="subscriptions",
+    )
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
+        # Гарантирует, что пользователь не может подписаться на один и тот же курс дважды
+        unique_together = ("user", "course")
+
+    def __str__(self):
+        return f"{self.user} - {self.course}"
