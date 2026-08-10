@@ -8,7 +8,7 @@ from lms.models import Course, Lesson, CourseSubscription
 from lms.serializers import CourseSerializer, LessonSerializer
 from lms.paginators import CustomPageNumberPagination
 
-from users.permissions import IsModerator, IsOwner, IsSubscriber
+from users.permissions import IsModerator, IsOwner, IsSubscriber, IsNotModerator
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -82,7 +82,7 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 class LessonDestroyAPIView(generics.DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [~IsModerator, IsOwner]
+    permission_classes = [IsNotModerator, IsOwner]
 
 
 class CourseSubscriptionAPIView(APIView):

@@ -11,6 +11,18 @@ class IsModerator(BasePermission):
         return request.user.is_authenticated and request.user.groups.filter(name="moderators").exists()
 
 
+class IsNotModerator(BasePermission):
+
+    def has_permission(self, request, view):
+        # Если пользователь модератор — возвращаем False (доступ запрещен)
+        if request.user.groups.filter(name='Moderators').exists():
+            return False
+        return True
+
+    def has_object_permission(self, request, view, obj):
+        return self.has_permission(request, view)
+
+
 class IsOwner(BasePermission):
     """Проверяет, состоит ли пользователь владельцем объекта"""
     def has_object_permission(self, request, view, obj):
