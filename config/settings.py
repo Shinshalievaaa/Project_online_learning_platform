@@ -1,9 +1,8 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-
-# import dotenv
 from dotenv import load_dotenv
+from celery.schedules import crontab
 
 load_dotenv()
 
@@ -25,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_celery_beat",
 
     "rest_framework",
     "django_filters",
@@ -139,3 +139,18 @@ SIMPLE_JWT = {
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://127.0.0.1:6379/0')
+
+# Настройки часового пояса для корректной работы Celery Beat
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'send_email': {
+        'task': 'lms.tasks.send_email',  # Укажите полный путь к вашей task-функции
+        'schedule': crontab(hour=0, minute=0),      # Запуск каждый день в полночь
+    },
+}

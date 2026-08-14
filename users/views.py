@@ -63,12 +63,3 @@ class PaymentCreateAPIView(generics.CreateAPIView):
         payment.payment_link = payment_link
         payment.stripe_session_id = session_id
         payment.save()
-
-    # @extend_schema(
-    #     summary="Создание платежа",
-    #     description="Генерирует ссылку на оплату курса/урока через Stripe Checkout.",
-    #     tags=["Платежи"],
-    # )
-    # def post(self, request, *args, **kwargs):
-    #     return super().post(request, *args, **kwargs)
-    #
