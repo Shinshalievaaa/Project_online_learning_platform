@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Almaty"
 
 USE_I18N = True
 
@@ -159,10 +159,15 @@ CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://127.0.0.1:63
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_ENABLE_UTC = False  # Используем локальный TIME_ZONE
 
 CELERY_BEAT_SCHEDULE = {
     'send_email': {
-        'task': 'lms.tasks.send_email',  # Укажите полный путь к вашей task-функции
+        'task': 'lms.tasks.send_email',
         'schedule': crontab(hour=0, minute=0),      # Запуск каждый день в полночь
+    },
+    'deactivate-inactive-users-daily': {
+        'task': 'users.tasks.deactivate_inactive_users',
+        'schedule': timedelta(minutes=1),
     },
 }
