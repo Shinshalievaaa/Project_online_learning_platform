@@ -11,6 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_ВашСекретныйКлючStripe')
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
@@ -24,11 +25,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "lms",
-    "users",
+
     "rest_framework",
     "django_filters",
     "rest_framework_simplejwt",
+    "drf_yasg",
+
+    "lms",
+    "users",
 ]
 
 MIDDLEWARE = [
