@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from lms.models import Course, Lesson, CourseSubscription
 from lms.serializers import CourseSerializer, LessonSerializer
 from lms.paginators import CustomPageNumberPagination
+from lms.tasks import send_course_update_email
 
 from users.permissions import IsModerator, IsOwner, IsSubscriber, IsNotModerator
 
@@ -41,6 +42,12 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        # Вызываем асинхронную Celery-задачу
+        send_course_update_email.delay(course.id, course.title)
+
 
 class LessonListAPIView(generics.ListAPIView):
     serializer_class = LessonSerializer
