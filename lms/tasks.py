@@ -9,7 +9,7 @@ def send_course_update_email(course_id, course_title):
     """Отправляет уведомления об обновлении курса всем пользователям, подписанным на данный курс."""
     # Находим все активные подписки на данный курс
     subscriptions = CourseSubscription.objects.filter(course_id=course_id)
-    recipient_list = [sub.user.email for sub in subscriptions if sub.user.email and sub.user.email.strip()]
+    recipient_list = list(subscriptions.values_list('user__email', flat=True))
     if recipient_list:
         send_mail(
             subject=f'Обновление курса: {course_title}',
