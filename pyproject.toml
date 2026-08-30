@@ -1,35 +1,33 @@
-[project]
+[tool.poetry]
 name = "project-online-learning-platform"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Your Name",email = "you@example.com"}
-]
+description = "Online learning platform backend"
+authors = ["Aigul <test@example.com>"]
+package-mode = false
 readme = "README.md"
-requires-python = ">=3.13,<4.0"
-dependencies = [
-    "python-dotenv (>=1.2.2,<2.0.0)",
-    "psycopg2 (>=2.9.12,<3.0.0)",
-    "djangorestframework (>=3.17.1,<4.0.0)",
-    "django (>=6.0.7,<7.0.0)",
-    "pillow (>=12.3.0,<13.0.0)",
-    "django-filter (>=26.1,<27.0)",
-    "djangorestframework-simplejwt (>=5.5.1,<6.0.0)",
-    "coverage (>=7.15.4,<8.0.0)",
-    "drf-yasg (>=1.21.15,<2.0.0)",
-    "stripe (>=15.5.0,<16.0.0)",
-    "celery (>=5.6.3,<6.0.0)",
-    "redis (>=8.1.0,<9.0.0)",
-    "django-celery-beat (>=2.9.0,<3.0.0)",
-    "eventlet (>=0.41.2,<0.42.0)"
-]
 
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+django = ">=5.0,<6.0"
+djangorestframework = "^3.15.0"
+djangorestframework-simplejwt = "^5.3.1"
+django-filter = "^24.1"
+django-celery-beat = "^2.6.0"
+python-dotenv = "^1.0.1"
+psycopg2-binary = "^2.9.9"
+pillow = "^10.2.0"
+coverage = "^7.4.3"
+drf-yasg = "^1.21.7"
+stripe = "^8.8.0"
+celery = "^5.3.6"
+redis = "^5.0.3"
+eventlet = "^0.35.2"
+gunicorn = "^21.2.0"
 
 [tool.poetry.group.lint.dependencies]
-black = "^26.5.1"
-isort = "^8.0.1"
+black = "^24.2.0"
+isort = "^5.13.2"
 
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
