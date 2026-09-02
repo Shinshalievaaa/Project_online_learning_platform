@@ -152,6 +152,7 @@ activemq-data/
 # Environments
 .env
 .envrc
+!.env.sample
 .venv
 env/
 venv/
@@ -218,3 +219,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Docker & Volumes (Данные контейнеров)
+pg_data/
+postgres_data/
+redis_data/
+.docker/
